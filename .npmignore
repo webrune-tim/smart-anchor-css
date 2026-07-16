@@ -1,0 +1,12 @@
+# Ignore source files and configurations
+src/
+tsconfig.json
+tsup.config.ts
+node_modules/
+
+# Ignore local dev/editor folders
+.github/
+.vscode/
+.git/
+.codespaces/
+.DS_Store
