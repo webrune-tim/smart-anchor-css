@@ -1,0 +1,127 @@
+/* ==========================================
+   Base Layout & Theme Setup
+   ========================================== */
+   html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    background-color: #121212; 
+    color: #eeeeee;
+    font-family: system-ui, -apple-system, sans-serif;
+    overflow: hidden;
+    user-select: none;
+  }
+  
+  /* ==========================================
+     The Anchor Node
+     ========================================== */
+  #anchor {
+    anchor-name: --my-anchor;
+    background-color: #1e1e1e;
+    color: lch(from #eb3300 calc(l + 15) c h);
+    border: 2px solid #eb3300;
+    box-shadow: 0 0 20px rgba(235, 51, 0, 1);
+    cursor: grab;
+    z-index: 10;
+  }
+  
+  #anchor:active {
+    box-shadow: 0 0 35px rgba(235, 51, 0, 0.8);
+    transform: scale(0.98);
+  }
+  
+  .box {
+    display: grid;
+    place-items: center;
+    width: 160px;
+    height: 60px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 30px;
+  }
+  
+  /* ==========================================
+     The Smart Tooltip
+     ========================================== */
+  #positionedElement {
+    position: absolute;
+    position-anchor: --my-anchor;
+    
+    margin: 28px; 
+    width: 150px;
+    height: 48px;
+    background-color: #eb3300;
+    color: #ffffff;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    
+    /* Smooth layout snapping */
+    transition: position-area 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .tooltip-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  
+  /* ==========================================
+     The Symmetrical Caret
+     ========================================== */
+  #positionedElement::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #eb3300;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    
+    /* Smooth caret tracking */
+    transition: transform 0.2s ease-out, top 0.2s, bottom 0.2s, left 0.2s, right 0.2s;
+  
+    top: if(
+      style(--pos: bottom-center): -15px;
+      style(--pos: bottom-left): -8px;
+      style(--pos: bottom-right): -8px;
+      style(--pos: center-left): 50%;
+      style(--pos: center-right): 50%;
+      else: auto
+    );
+    bottom: if(
+      style(--pos: top-center): -16px;
+      style(--pos: top-left): -8px;
+      style(--pos: top-right): -8px;
+      else: auto
+    );
+  
+    left: if(
+      style(--pos: bottom-right): -8px;
+      style(--pos: top-right): -8px;
+      style(--pos: bottom-center): 50%;
+      style(--pos: top-center): 50%;
+      style(--pos: center-right): -16px;
+      else: auto
+    );
+    right: if(
+      style(--pos: bottom-left): -8px;
+      style(--pos: top-left): -8px;
+      style(--pos: center-left): -16px;
+      else: auto
+    );
+  
+    transform: if(
+      style(--pos: bottom-center): translateX(-50%) rotate(0deg);
+      style(--pos: bottom-left): rotate(45deg);
+      style(--pos: center-left): translateY(-50%) rotate(90deg);
+      style(--pos: top-left): rotate(135deg);
+      style(--pos: top-center): translateX(-50%) rotate(180deg);
+      style(--pos: top-right): rotate(225deg);
+      style(--pos: center-right): translateY(-50%) rotate(270deg);
+      style(--pos: bottom-right): rotate(-45deg);
+      else: none;
+    );
+  }

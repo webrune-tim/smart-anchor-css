@@ -1,0 +1,41 @@
+{
+  "name": "smart-anchor-css",
+  "version": "1.0.0",
+  "description": "A zero-wobble, collision-safe smart tooltip engine powered by Native CSS Anchor Positioning.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup && pnpm run build:css",
+    "build:css": "mkdir -p dist && cp src/style.css dist/style.css",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist node_modules"
+  },
+  "keywords": [
+    "css",
+    "anchor",
+    "tooltip",
+    "floating",
+    "position-anchor",
+    "tether"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  }
+}
